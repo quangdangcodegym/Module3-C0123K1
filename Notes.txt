@@ -1,0 +1,18 @@
+Khóa chính:
+Ràng buộc
+	NOT NULL
+	DEFAULT
+	CHECK
+	UNIQUE
+	AI
+	Khóa chính
+	Khóa ngoại:
+	
+	
+Date: yyyy-MM-dd
+Datetime: yyyy-MM-dd hh:mm:ss
+2023-04-20 00:00:00
+2023-04-20 08:00:00
+
+char(10)	: abc	
+varchar(10): abc
