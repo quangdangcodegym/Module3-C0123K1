@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/css/bootstrap.min.css" integrity="sha512-rt/SrQ4UNIaGfDyEXZtNcyWvQeOq0QLygHluFQcSjaGB04IxWhal71tKuzP6K8eYXYB6vJV4pHkXcmFGGQ1/0w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        .center-table{
+            display: flex;
+            justify-content: center;
+        }
+        .center-table h4{
+            text-align: center;
+        }
+        .main{
+            padding: 20px;
+        }
+        .center-table{
+            border: 1px solid blue;
+        }
+        .left-nav{
+            padding: 20px;
+        }
+        .left-nav h5{
+            text-align: center;
+        }
+        .left-nav button{
+            width: 100%;
+            margin: 5px;
+        }
+        .iremove{
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class= "container-fluid">
+        <div class= "row">
+           <div class ="col-sm-3 left-nav">
+              <h5>Meuu item</h5>
+              <button class="btn btn-primary">Student Manager</button>
+              <button class="btn btn-outline-primary">Student Manager</button>
+           </div>
+           <div class ="col-sm-9 main">
+                <div class="center-table">
+                    <div class="col-8">
+                        <h4>Student Info table</h4>
+                        <table class="table table-hover">
+                            <thead>
+                              <tr>
+                                <th>#</th>
+                                <th>Lastname</th>
+                                <th>Email</th>
+                                <th>Action</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>John</td>
+                                <td>Doe</td>
+                                <td>john@example.com</td>
+                                <td>
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                    <i class="fa-solid fa-xmark iremove"></i>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>Mary</td>
+                                <td>Moe</td>
+                                <td>mary@example.com</td>
+                                <td>
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                    <i class="fa-solid fa-xmark iremove"></i>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>July</td>
+                                <td>Dooley</td>
+                                <td>july@example.com</td>
+                                <td>
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                    <i class="fa-solid fa-xmark iremove"></i>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                    </div>
+                </div>
+           </div>
+        </div>
+     </div>
+</body>
+</html>
