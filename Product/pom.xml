@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.codegym</groupId>
-    <artifactId>HelloServlet</artifactId>
+    <artifactId>Product</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>HelloServlet</name>
+    <name>Product</name>
     <packaging>war</packaging>
 
     <properties>
@@ -18,13 +18,6 @@
     </properties>
 
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/jstl/jstl -->
-        <dependency>
-            <groupId>jstl</groupId>
-            <artifactId>jstl</artifactId>
-            <version>1.2</version>
-        </dependency>
-
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>

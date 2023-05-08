@@ -1,3 +1,5 @@
+<%@ page import="javax.servlet.http.*" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%--
   Created by IntelliJ IDEA.
   User: Admin
@@ -11,16 +13,23 @@
     <title>Title</title>
 </head>
 <body>
-    <form action="/translate" method="post">
-        <input name="txtSearch" placeholder="search...">
-        <%
-            if(request.getAttribute("result")!=null) {%>
-            <div>
-                <label>Kết quả: </label><label><%= request.getAttribute("result")%></label>
-            </div>
-        <% }%>
+<form action="/translate" method="post">
+    <input name="txtSearch" placeholder="search..." value="${requestScope.vocabulary}">
 
-        <button type="submit" >Translate</button>
-    </form>
+    <c:if test="${requestScope.result != null}">
+        <div>
+            <label>Kết quả: </label><label>${requestScope.result}</label>
+        </div>
+    </c:if>
+    <ul>
+        <c:forEach items="${requestScope.vocabularies}" var="c">
+            <a href="/translate?vocabolary=${c}"><li>${c}</li></a>
+        </c:forEach>
+    </ul>
+
+    <button type="submit" >Translate</button>
+</form>
+
+
 </body>
 </html>
