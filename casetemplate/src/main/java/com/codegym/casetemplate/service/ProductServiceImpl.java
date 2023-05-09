@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ProductServiceImpl implements IProductService{
     private static final String FIND_ALL_PRODUCTS = "SELECT * FROM product;";
-    private static final String ADD_PRODUCT = "INSERT INTO `product` (name`, `description`, `price`, `create_at`, `idcategory`) VALUES (?, ?, ?, ?, ?);";
+    private static final String ADD_PRODUCT = "INSERT INTO `product` (`name`, `description`, `price`, `create_at`, `idcategory`) VALUES (?, ?, ?, ?, ?);";
     private static final String UPDATE_PRODUCT = "UPDATE `product` SET `name` = ?, `description` = ?, `price` = ?, `create_at` = ?, `idcategory` = ? WHERE (`id` = ?);";
     private static final String DELETE_PRODUCT = "DELETE FROM `product` WHERE (`id` = ?);";
     private String jdbcURL = "jdbc:mysql://localhost:3306/c0123_product_manager?allowPublicKeyRetrieval=true&useSSL=false";
@@ -82,12 +82,11 @@ public class ProductServiceImpl implements IProductService{
             Connection connection = getConnection();
 
             PreparedStatement preparedStatement = connection.prepareStatement(ADD_PRODUCT);
-            // INSERT INTO `product` (`name`, `description`, `price`, `create_at`, `idcategory`) VALUES ( ?, ?, ?, ?, ?);
             preparedStatement.setString(1, product.getName());
             preparedStatement.setString(2, product.getDescription());
             preparedStatement.setFloat(3, product.getPrice());
             preparedStatement.setDate(4,  new java.sql.Date(product.getCreateAt().getTime()));
-            preparedStatement.setInt(5, product.getIdCategory());
+            preparedStatement.setLong(5, product.getIdCategory());
 
             System.out.println("addProduct: " + preparedStatement);
 

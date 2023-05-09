@@ -60,7 +60,9 @@ public class CategoryServiceImpl implements ICategoryService{
         try {
             Connection connection = getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(FIND_CATEGORY_BY_ID);
+            preparedStatement.setLong(1, idCategory);
 
+            System.out.println("findCategoryById: "  + preparedStatement);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 long id = rs.getLong("id");
@@ -70,7 +72,7 @@ public class CategoryServiceImpl implements ICategoryService{
                 return c;
             }
 
-            System.out.println("findCategoryById: "  + preparedStatement);
+
 
             connection.close();
         } catch (SQLException sqlException) {

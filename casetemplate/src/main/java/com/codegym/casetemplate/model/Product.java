@@ -11,9 +11,9 @@ public class Product {
     private Date createAt;
 
 
-    private int idCategory;
+    private long idCategory;
 
-    public Product(long id, String name, String description,float price, Date createAt, int idCategory) {
+    public Product(long id, String name, String description,float price, Date createAt, long idCategory) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -65,11 +65,11 @@ public class Product {
         this.createAt = createAt;
     }
 
-    public int getIdCategory() {
+    public long getIdCategory() {
         return idCategory;
     }
 
-    public void setIdCategory(int idCategory) {
+    public void setIdCategory(long idCategory) {
         this.idCategory = idCategory;
     }
 }
