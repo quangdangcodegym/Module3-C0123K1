@@ -7,10 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductServiceImpl implements IProductService{
+    private int noOfRecords;
     private static final String FIND_ALL_PRODUCTS = "SELECT * FROM product;";
     private static final String ADD_PRODUCT = "INSERT INTO `product` (`name`, `description`, `price`, `create_at`, `idcategory`) VALUES (?, ?, ?, ?, ?);";
     private static final String UPDATE_PRODUCT = "UPDATE `product` SET `name` = ?, `description` = ?, `price` = ?, `create_at` = ?, `idcategory` = ? WHERE (`id` = ?);";
     private static final String DELETE_PRODUCT = "DELETE FROM `product` WHERE (`id` = ?);";
+    private static final String SELECT_PRODUCTS_PAGGING = "SELECT SQL_CALC_FOUND_ROWS * FROM product where `name` like ? limit ?, ?";
+    private static final String SELECT_PRODUCTS_CATEGORY_PAGGING = "SELECT SQL_CALC_FOUND_ROWS * FROM product where `name` like ? and idcategory = ? limit ?, ?;";
     private String jdbcURL = "jdbc:mysql://localhost:3306/c0123_product_manager?allowPublicKeyRetrieval=true&useSSL=false";
     private String jdbcUsername = "root";
     private String jdbcPassword = "Raisingthebar123!!/";
@@ -59,6 +62,59 @@ public class ProductServiceImpl implements IProductService{
         }
 
         return products;
+    }
+
+    @Override
+    public List<Product> findAllProductsPagging(String kw, long idCategory, int offset, int limit) {
+        List<Product> products = new ArrayList<>();
+        try {
+            Connection connection = getConnection();
+            PreparedStatement preparedStatement;
+            if (idCategory == -1) {
+                //"SELECT * FROM product where `name` like ? limit ?, ?";
+                preparedStatement = connection.prepareStatement(SELECT_PRODUCTS_PAGGING);
+                preparedStatement.setString(1, "%" + kw + "%");
+                preparedStatement.setInt(2, offset);
+                preparedStatement.setInt(3, limit);
+            }else{
+                //SELECT * FROM product where `name` like ? and idcategory = ? limit ?, ?;
+                preparedStatement = connection.prepareStatement(SELECT_PRODUCTS_CATEGORY_PAGGING);
+                preparedStatement.setString(1, "%" + kw + "%");
+                preparedStatement.setLong(2, idCategory);
+                preparedStatement.setInt(3, offset);
+                preparedStatement.setInt(4, limit);
+            }
+            System.out.println("findAllProductsPagging: " + preparedStatement);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                Product p = getProductInfo(rs);
+                products.add(p);
+            }
+            rs = preparedStatement.executeQuery("select FOUND_ROWS()");
+            while (rs.next()) {
+                noOfRecords = rs.getInt(1);
+            }
+        } catch (SQLException sqlException) {
+            printSQLException(sqlException);
+        }
+        return products;
+    }
+
+    private Product getProductInfo(ResultSet rs) throws SQLException {
+        long idProduct = rs.getLong("id");
+        String nameProduct = rs.getString("name");
+        String description = rs.getString("description");
+        float price = rs.getFloat("price");
+        Date date = rs.getDate("create_at");
+        long idCate = rs.getLong("idcategory");
+        Product p = new Product(idProduct, nameProduct, description, price, date, idCate);
+        return p;
+
+    }
+
+    @Override
+    public int getNoOfRecords() {
+        return this.noOfRecords;
     }
 
     public void printSQLException(SQLException ex) {

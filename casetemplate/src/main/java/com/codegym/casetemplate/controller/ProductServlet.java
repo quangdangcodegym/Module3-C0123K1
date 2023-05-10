@@ -59,11 +59,42 @@ public class ProductServlet extends HttpServlet {
     }
 
     private void showProducts(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Product> products = productService.findAllProducts();
+        String kw = "";
+        if (req.getParameter("kw") != null) {
+            kw = req.getParameter("kw");
+        }
+        long idCategory = -1;
+        if (req.getParameter("idcategory") != null) {
+            idCategory = Long.parseLong(req.getParameter("idcategory"));
+        }
+        int page = 1;
+        if (req.getParameter("page") != null) {
+            page = Integer.parseInt(req.getParameter("page"));
+        }
+        int limit = 3;
+        if (req.getParameter("limit") != null) {
+            limit = Integer.parseInt(req.getParameter("limit"));
+        }
+
+
+
+        List<Product> products = productService.findAllProductsPagging(kw, idCategory, (page - 1) * limit, limit);
         List<Category> categories = categoryService.findAllCategory();
+
+        // Lấy tổng so trang
+        int noOfRecords = productService.getNoOfRecords();
+        int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / limit);     // hàm ceil làm tròn lên: 10/3 = 3,33 => làm tròn 4
 
         req.setAttribute("products", products);
         req.setAttribute("categories", categories);
+
+        req.setAttribute("kw", kw);
+        req.setAttribute("idcategory", idCategory);
+        req.setAttribute("currentPage", page);
+        req.setAttribute("limit", limit);
+        req.setAttribute("noOfPages", noOfPages);
+
+
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/product/list.jsp");
         requestDispatcher.forward(req, resp);
     }
