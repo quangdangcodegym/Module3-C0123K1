@@ -1,0 +1,40 @@
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spInsertUsersTransaction`()
+BEGIN
+	DECLARE `_rollback` BOOL DEFAULT 0;
+    DECLARE EXIT HANDLER FOR SQLEXCEPTION SET `_rollback` = 1;
+    START TRANSACTION;
+	INSERT INTO `user` (`email`, `password`, `roleid`) VALUES ('bang@codegym.vn', '123123', '1');
+	INSERT INTO `user` (`email`, `password`, `roleid`) VALUES ('chau@codegym.vn', '123123', '1');
+	INSERT INTO `user` (`email`, `password`, `roleid`) VALUES ('quang@codegym.vn', '123123', '1');
+    commit;
+    IF `_rollback` THEN
+        ROLLBACK;
+    ELSE
+        COMMIT;
+    END IF;
+    
+    SELECT "CONTINUE.......";
+    
+    
+END
+
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spInsertUsers`()
+BEGIN
+	INSERT INTO `user` (`email`, `password`, `roleid`) VALUES ('bang@codegym.vn', '123123', '1');
+	INSERT INTO `user` (`email`, `password`, `roleid`) VALUES ('chau@codegym.vn', '123123', '1');
+	INSERT INTO `user` (`email`, `password`, `roleid`) VALUES ('quang@codegym.vn', '123123', '1');
+
+END
+
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `spGetTotalProductPrice`(
+	IN pCategoryId integer,
+    OUT rTotal float
+)
+BEGIN
+	SET rTotal = (
+				SELECT sum(price) as total
+				FROM product
+				where idcategory = pCategoryId);
+END

@@ -191,4 +191,23 @@ public class ProductServiceImpl implements IProductService{
             printSQLException(sqlException);
         }
     }
+
+    @Override
+    public float getTotalPriceProduct(long idCategory) {
+        float total = 0;
+        try {
+            Connection connection = getConnection();
+            CallableStatement callableStatement = connection.prepareCall("call spGetTotalProductPrice(?, ?)");
+            callableStatement.setLong(1, idCategory);
+            callableStatement.registerOutParameter(2, Types.FLOAT);
+
+            System.out.println("getTotalPriceProduct: " + callableStatement);
+            callableStatement.execute();
+            total = callableStatement.getFloat(2);
+
+        } catch (SQLException sqlException) {
+            printSQLException(sqlException);
+        }
+        return total;
+    }
 }

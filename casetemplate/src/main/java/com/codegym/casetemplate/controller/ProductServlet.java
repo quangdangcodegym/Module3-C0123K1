@@ -59,6 +59,8 @@ public class ProductServlet extends HttpServlet {
     }
 
     private void showProducts(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        System.out.println(productService.getTotalPriceProduct(1));
+
         String kw = "";
         if (req.getParameter("kw") != null) {
             kw = req.getParameter("kw");

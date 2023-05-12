@@ -14,4 +14,6 @@ public interface IProductService {
     void updateProduct(long idProduct, Product product);
 
     void deleteProduct(long idProduct);
+
+    float getTotalPriceProduct(long idCategory);
 }
