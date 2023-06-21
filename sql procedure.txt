@@ -6,7 +6,6 @@ BEGIN
 	INSERT INTO `user` (`email`, `password`, `roleid`) VALUES ('bang@codegym.vn', '123123', '1');
 	INSERT INTO `user` (`email`, `password`, `roleid`) VALUES ('chau@codegym.vn', '123123', '1');
 	INSERT INTO `user` (`email`, `password`, `roleid`) VALUES ('quang@codegym.vn', '123123', '1');
-    commit;
     IF `_rollback` THEN
         ROLLBACK;
     ELSE
